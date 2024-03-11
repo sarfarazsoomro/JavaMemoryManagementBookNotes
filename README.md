@@ -1,4 +1,4 @@
-# JavaMemoryManagementBookNotes
+# Java Memory Management - Notes
 Notes from "Java Memory Management" by Maaike van Putten, Seán Kennedy. Packt Publishing
 
 # References
@@ -12,7 +12,7 @@ The Runtime data areas is essentially the Java memory; which is managed by JVM f
 
 Runtime data areas:
 1. The stack
-    2. Contains a stack for each thread. Primitives and reference variables to heap are stored in the stack. Each method call results in a stack frame being created in the stack. This frame contains values for the method. A thread can only access it's own stack.
+    1. Contains a stack for each thread. Primitives and reference variables to heap are stored in the stack. Each method call results in a stack frame being created in the stack. This frame contains values for the method. A thread can only access it's own stack.
 2. The heap
     1. The heap is used for dynamic memory allocation of instances of object at runtime. The heap is managed and cleaned up by garbage collection
 3. The method area/Metaspace
