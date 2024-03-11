@@ -3,6 +3,7 @@ Notes from "Java Memory Management" by Maaike van Putten, Seán Kennedy. Packt P
 
 # References
 - https://learning.oreilly.com/library/view/java-memory-management/9781801812856/
+- https://www.amazon.com/Java-Memory-Management-comprehensive-collection/dp/1801812853
 
 # 1. Different Parts of the Java Memory
 ![Java Memory Areas.png](JavaMemoryAreas.png)
