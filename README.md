@@ -5,7 +5,7 @@ Notes from "Java Memory Management" by Maaike van Putten, Seán Kennedy. Packt P
 - https://learning.oreilly.com/library/view/java-memory-management/9781801812856/
 
 # 1. Different Parts of the Java Memory
-![Java Memory Areas.png](Java Memory Areas.png)
+![Java Memory Areas.png](JavaMemoryAreas.png)
 
 The Runtime data areas is essentially the Java memory; which is managed by JVM for executing code.
 
