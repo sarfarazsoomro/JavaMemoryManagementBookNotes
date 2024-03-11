@@ -262,5 +262,53 @@ Metadata consists of the follwoing:
 - We know that dynamic class loader instances reside in the heap; and they are responsible for loading class's meta data into the metaspace
     - The metadata for the classes loaded by a class loader can only be garbage collected once all the classes loaded  by that class loader are out of scope
     - This again will only happen if the GC is triggered in the metaspace (hitting the threshold or __high watermark__)
-
+# 6. Monitoring & Configuring JVM Memory
+## Relevant metrics for memory management
+In order to tune the JVM memory management; it's a good idea to have an understanding of the following
+- What is a well functioning memory for the application
+- Normal latency
+- Normal throughput
+### Well functioning memory
+- Find out the stable memory footprint of an application
+- There should be more memory available than the stable memory-usage
+- Also make sure not to allocate too much memory to JVM and leave enough for the operating system to function properly
+- Knowing the normal memory usage will set a benchmark to measure the consequences of any memory tuning
+### Normal latency
+- Measuring the latency of an application could be tricky if the application is dependent on other services which incurs network/IO costs
+- In these cases latency issues might not be related to JVM memory
+### Normal throughput
+- High throughput requires more memory which may affect latency (larger memory takes longer to cleanup)
+## Profiling Java applications
+- Profiling affects application performance, so it's advisable to profile in development environment if possible
+- Use `jps` to get PID of all Java processes
+- We can do basic profiling with
+  - jstat
+    - e.g: `jstat -gc -t -h 10 58707 500 5000`
+  - jmap
+    - e.g: `jhsdb jmap --heap --pid 35384`
+  - VisualVM
+## Tuning the configuration of the JVM
+- Tuning should not be the first step to improve performance; good code should be
+- It's generally a best practice to not set heap size more than half of what is available on the server
+- Use the following command to see the defaults for heap size
+  - `java -XX:+PrintFlagsFinal -version | grep HeapSize`
+- The heap size affects garbage collection performance
+  - Too small & the GC needs to run more frequently and spends more CPU time on GC
+  - Too large and it take more time to do a full GC
+  - Good rule of thumb is that the application should spend less than 5% of it's execution time collecting garbage
+- Examples for setting size limits for overall memory pool & stack size
+  - **-Xms1024m** (initial size heap)
+  - **-Xmx1024m** (maximum size heap)
+  - **-Xss1024m** (thread stack size)
+- Examples for setting Young Generation size
+  - **-XX:MaxNewSize=1024m** (maximum new size)
+  - **-XX:NewSize=1024m** (minimum new size)
+- Example for creating a heap dump on OOME (`OutOfMemoryException)
+  - `java -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/some/path/to/dumps ExampleAnalysis`
+- Example for specifying a GC
+  - **XX:+UseSerialGC**
+  - **XX:+UseParallelGC**
+  - **XX:+UseConcMarkSweepGC**
+  - **XX:+G1GC**
+  - **XX:+UseZGC**
 # 7. Avoiding Memory Leaks
