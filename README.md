@@ -6,7 +6,7 @@ Notes from "Java Memory Management" by Maaike van Putten, Seán Kennedy. Packt P
 - https://www.amazon.com/Java-Memory-Management-comprehensive-collection/dp/1801812853
 
 # 1. Different Parts of the Java Memory
-![Java Memory Areas.png](JavaMemoryAreas.png)
+![Java Memory Areas.png](images/JavaMemoryAreas.png)
 
 The Runtime data areas is essentially the Java memory; which is managed by JVM for executing code.
 
@@ -33,7 +33,7 @@ Runtime data areas:
 - When a new stack cannot be allocated; `OutOfMemoryError` is thrown
 - Top frame of the stack corresponds to the currently executing method; and is called the current frame
 ### Inside a stack/method frame
-![StackFrame.png](StackFrame.png)
+![StackFrame.png](images/StackFrame.png)
 
 A stack frame has the following components
 #### Local variable array
@@ -77,8 +77,8 @@ A stack frame has the following components
     - To references would be reflected outside to the calling method
 
 ### Escaping References
-![EscapingReferencesCodeExample.png](EscapingReferencesCodeExample.png)
-![EscapingReferencesMemory.png](EscapingReferencesMemory.png)
+![EscapingReferencesCodeExample.png](images/EscapingReferencesCodeExample.png)
+![EscapingReferencesMemory.png](images/EscapingReferencesMemory.png)
 - Even though StringBuilder is private to the person class; but due to the reference being passed around different scopes (because of call-by-value); other objects are also able to change it's value. Essentially everyone holds reference to the same object
 - This is primarily because StringBuilder is mutable; in contrast to String which is immutable
 - The wrapper types (Double, Long, Integer) are also immutable
@@ -86,7 +86,7 @@ A stack frame has the following components
 - The solution revolves around `defensive copying`; where we copy the incoming (passed object) and the outgoing (returned object) for any mutable objects
 - The solution is to copy the contents of the passed object into a new object and store the reference to that new object. This is knows as `Deep Copying`; as against shallow copying (done by call-by-value for references)
 
-![EscapingReferencesSolutionCode.png](EscapingReferencesSolutionCode.png)
+![EscapingReferencesSolutionCode.png](images/EscapingReferencesSolutionCode.png)
 ```
 Manage object references with care. If not managed properly, you could end up with _escaping references_. 
 Java uses call-by-value, which means a copy is made of the argument passed or returned. 
@@ -100,7 +100,7 @@ The heap space consists of two different memory areas:
 - Young generation space
 - Old generation (tenured) space
   
-![HeapSpaces.png](HeapSpaces.png)
+![HeapSpaces.png](images/HeapSpaces.png)
 ### Garbage Collection Roots (GC roots)
 GC roots are special types of objects not eligible for GC. All objects approachable by GC roots are also ineligible for GC (called live objects). Common GC roots are:
 - Local variables on the stack
@@ -114,7 +114,7 @@ GC roots are special types of objects not eligible for GC. All objects approacha
 - __Old generation space__: AKA __tenured__ space. This is where longer-lived objects reside. The GC moves objects that have survived a certain number of GCs here. When the old generation space is full; this triggers a major GC
 ## How the spaces are used
 ### Minor garbage collection algorithm
-![MinorGarbageCollectionAlgoPseudoCode.png](MinorGarbageCollectionAlgoPseudoCode.png)
+![MinorGarbageCollectionAlgoPseudoCode.png](images/MinorGarbageCollectionAlgoPseudoCode.png)
 - The tenuring threshold is configurable using a JVM argument;
     - **-XX:MaxTenuringThreshold**
     - Care must be exercised with the argument, as a value greater than 15 specifies that objects should never tenure, thereby indefinitely filling up the survivor space with old objects
@@ -146,7 +146,7 @@ GC roots are special types of objects not eligible for GC. All objects approacha
 - We can also maintain the number of reference to an object
 - Any object with >= 1 number of reference cannot be garbage collected
 - Somehow this approach is not used; as it doesn't work with objects which reference each other without having a connection to the stack. This is called **Islands of isolation**
-  ![IslandsOfIsolation.png](IslandsOfIsolation.png)
+  ![IslandsOfIsolation.png](images/IslandsOfIsolation.png)
 ## Sweeping
 The deletion of objects is called __Sweeping__ in GC jargon. There are three kinds of sweeping
 - Normal sweeping
@@ -155,22 +155,22 @@ The deletion of objects is called __Sweeping__ in GC jargon. There are three kin
 ### Normal Sweeping
 This only deletes the objects but leaves the memory fragmented. Sometimes; even with enough overall memory available; there isn't enough contiguous space available to allocate memory for that object due to fragmentation. This leads to `OutOfMemoryError` being thrown.
 
-![NormalSweepingBefore.png](NormalSweepingBefore.png)
-![NormalSweepingAfter.png](NormalSweepingAfter.png)
+![NormalSweepingBefore.png](images/NormalSweepingBefore.png)
+![NormalSweepingAfter.png](images/NormalSweepingAfter.png)
 ### Sweeping with compacting
 - This strategy adds an extra step where after freeing up memory; the remaining objects are moved to ensure there are no gaps between them
 - The end result is no fragmentation in the memory
 - Somehow this comes at a performance cost
   
-![SweepingWithCompacting.png](SweepingWithCompacting.png)
+![SweepingWithCompacting.png](images/SweepingWithCompacting.png)
 ### Sweeping with copying
 - For this strategy; two memory regions are required
 - First all the reachable objects are copied over to the new memory area
 - Then the first memory area is cleared of all objects
 #### Step 1
-![SweepingWithCopyingStep1.png](SweepingWithCopyingStep1.png)
+![SweepingWithCopyingStep1.png](images/SweepingWithCopyingStep1.png)
 #### Step 2
-![SweepingWithCopyingStep2.png](SweepingWithCopyingStep2.png)
+![SweepingWithCopyingStep2.png](images/SweepingWithCopyingStep2.png)
 ## GC Implementations
 Standard JVM has 5 different GC implementations
 1. Serial GC
