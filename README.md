@@ -18,7 +18,7 @@ Runtime data areas:
 3. The method area/Metaspace
     1. Class's metadata is stored here. It used to be called PermGen (permanent generation). All threads share this method area. It contains the runtime code, constants, static variables & constructor code
 4. The runtime constant pool
-    1. - Is part of the method area or Metaspace
+    1. Is part of the method area or Metaspace
 5. The program counter register
     1. Each thread has it's own PC register (Call stack) which tells what code is being executed by holding the address of the instruction that's being executed. A separate PC for each thread allows concurrent execution of the same code
 6. The native method stack
