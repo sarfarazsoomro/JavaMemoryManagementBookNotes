@@ -9,7 +9,7 @@ Notes from "Java Memory Management" by Maaike van Putten, Seán Kennedy. Packt P
 ![Java Memory Areas.png](images/JavaMemoryAreas.png)
 
 The Runtime data areas is essentially the Java memory; which is managed by JVM for executing code.
-
+![Java Memory Areas.png](images/JavaMemoryAreas2.png)
 Runtime data areas:
 1. The stack
     1. Contains a stack for each thread. Primitives and reference variables to heap are stored in the stack. Each method call results in a stack frame being created in the stack. This frame contains values for the method. A thread can only access it's own stack.
