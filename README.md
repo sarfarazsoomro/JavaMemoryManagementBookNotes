@@ -297,12 +297,12 @@ In order to tune the JVM memory management; it's a good idea to have an understa
   - Too large and it take more time to do a full GC
   - Good rule of thumb is that the application should spend less than 5% of it's execution time collecting garbage
 - Examples for setting size limits for overall memory pool & stack size
-  - **-Xms1024m** (initial size heap)
-  - **-Xmx1024m** (maximum size heap)
-  - **-Xss1024m** (thread stack size)
+  - **-Xms1024m** (initial size heap)
+  - **-Xmx1024m** (maximum size heap)
+  - **-Xss1024m** (thread stack size)
 - Examples for setting Young Generation size
-  - **-XX:MaxNewSize=1024m** (maximum new size)
-  - **-XX:NewSize=1024m** (minimum new size)
+  - **-XX:MaxNewSize=1024m** (maximum new size)
+  - **-XX:NewSize=1024m** (minimum new size)
 - Example for creating a heap dump on OOME (`OutOfMemoryException)
   - `java -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/some/path/to/dumps ExampleAnalysis`
 - Example for specifying a GC
