@@ -24,9 +24,9 @@ Runtime data areas:
 6. The native method stack
     1. Also known as the C stack for invoking native methods
 ## Creating variables in Java
-- Primitives and reference variables are stored on the stack. The actual object is stored on the heap
+- Primitives (local variables) and reference variables are stored on the stack. The actual object is stored on the heap
 ## Variables on the stack
-- Variables used in methods are stored on the stack.
+- Variables used in methods are stored on the stack (local variables)
 - Stack memory is used for executing methods
 - Each method call results in a stack frame being created in the stack memory; so the stack consists of frames corresponding to method invocations.
 - When the method is finished; the stack is removed
